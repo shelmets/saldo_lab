@@ -1,0 +1,22 @@
+.container
+{
+	position: relative; 
+	top: 40px
+}
+.input-group
+{
+	width: 50%; 
+}
+.date
+{
+	width: 25%;
+}
+.count
+{
+	width:12.5%;
+	margin-bottom: 5px;
+}
+form
+{
+	margin-bottom: 8em;
+}
