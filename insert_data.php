@@ -26,42 +26,57 @@ if ($res_old_data = $mysqli->query(sprintf("select number_flat, cash, date from 
 		$flat = $_REQUEST[sprintf('flat%d',$i)];
 		$charge = $_REQUEST[sprintf('cash%d',$i)];
 
-		echo sprintf('%d)<br>', $i);
+		echo sprintf('%d)<br>', $i+1);
 	//проверяем на идентичность номера квартиры и даты счета или оплаты (в зависимости от таблицы)
 	if ($res_old_data->num_rows!=0){ //если в таблице что то есть
 		$res_old_data->data_seek(0);
 		while ($row = $res_old_data->fetch_assoc())
 		{
 			if ($row["number_flat"]==$flat && $row["date"]==$date){
-				if ($mysqli->query(sprintf("delete from %s where number_flat=%d and date='%s'",$action,$flat, $date))
+				if ($mysqli->query(sprintf("delete from %s where number_flat=%d and date='%s'",$action,$flat, $date)))
 				{
 					echo sprintf("Delete %d %d row Successful<br>", $flat, $row["cash"]);
 				}
 				else
 				{
 					echo sprintf("Delete %d %d row, errno Failure: %d, error: %s <br>", $flat, $row["cash"], $mysqli->errno, $mysqli->error);
+					$flag = false;
+					break;
 				};
 			};
 		};
 	};
-	if ($mysqli->query(sprintf("insert into %s(number_flat,date,cash) values (%d,'%s',%d)",$action, $flat, $date, $charge)))
-	{
-		echo sprintf("Insert %d %d Successful<br>",$flat, $charge);
+	if ($flag){
+		if ($mysqli->query(sprintf("insert into %s(number_flat,date,cash) values (%d,'%s',%d)",$action, $flat, $date, $charge)))
+		{
+			echo sprintf("Insert %d %d Successful<br>",$flat, $charge);
+		}
+		else
+		{
+			echo sprintf("Insert %d %d Failure, errno: %d, error: %s <br>",$flat, $charge);
+			$flag = false;
+			break;
+		}
 	}
 	else
 	{
-		echo sprintf("Insert %d %d Failure, errno: %d, error: %s <br>",$flat, $charge);
-		$flag = false;
 		break;
-	}
 	};
+};
 }
 else
 {
-	echo sprintf("Select number_flat, cash, date from %s Failure, errno: %d, error: %s",$action, $mysqli->errno, $mysqli->error);
+	echo sprintf("Select number_flat, cash, date from %s Failure, errno: %d, error: %s<br>",$action, $mysqli->errno, $mysqli->error);
+	$flag = false;
 };
-echo ($flag) ? "Success!<br>" : "Something wrong!<br>";
-
+if ($flag)
+{
+	echo "Successful!!! :) <br>";
+}
+else
+{
+	echo "Failure, something wrong  :( <br>";
+}
 //ссылочка назад к формам
 echo '<a href="http://lab">back</a><br>';
 $mysqli->close();
