@@ -10,49 +10,61 @@
 </head>
 <body>
 	<div class = "container">
-		<form method = "POST" action="insert_data.php">
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<label class="input-group-text" for="inputSelect">Action</label>
-				</div>
-				<select class="custom-select" id="inputSelect" name = "select">
-					<option value="charges">charges</option>
-					<option value="payments">payments</option>
-				</select>
+		<div class = "row">
+			<div class = "col-md-6">
+				<form method = "POST" id = "formInsert" action = "insert_data.php">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="inputSelect">Action</label>
+						</div>
+						<select class="custom-select" id="inputSelect" name = "select">
+							<option value="charges">charges</option>
+							<option value="payments">payments</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="date">Date</label>
+						<div class="input-group date">
+							<input type="month" name = "date" id="date" min="2018-03" value="2018-05" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label id = "labelCount" for="count">Count of charges</label>
+						<div class="input-group count">
+							<input type="number" id = "count" name="count" min="0" value="1" step = "1" class="form-control">
+						</div>
+						<button id ="create" class="btn btn-success" type = "button">Create</button>
+					</div>
+					<div id = "requests" class="form-group">
+						<label id = "labelAction" for="action">Input charges</label>
+						<div class="input-group">
+							<input type="number" id="action" name = "flat0" class="form-control" placeholder="Flat">
+							<input type="number" id="action" name = "cash0" class="form-control" placeholder="Cash">
+						</div>
+					</div>
+					<button id = "send" type="submit" class="btn btn-primary">Send</button>
+				</form>
 			</div>
-			<div class="form-group">
-				<label for="date">Date</label>
-				<div class="input-group date">
-					<input type="month" name = "date" id="date" min="2018-03" value="2018-05" class="form-control">
-				</div>
+			<div class="col-md-6">
+				<form method="GET" action="handler.php">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="SelectReport">Report</label>
+						</div>
+						<select class="custom-select" id="SelectReport" name = "select">
+							<option value="1">show all flat for the year</option>
+							<option value="2">show one flat for the year</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<button id = "choose" class="btn btn-success " type = "button">Choose</button>
+					</div>
+					<div id= "param" class = "form-group choose">
+					</div>
+					<button id = "show" type="submit" class="btn btn-primary" disabled="disabled">Show</button>
+				</form>
 			</div>
-			<div class="form-group">
-				<label id = "labelCount" for="count">Count of charges</label>
-				<div class="input-group count">
-					<input type="number" id = "count" name="count" min="0" value="1" step = "1" class="form-control">
-				</div>
-				<button id ="create" class="btn btn-success" type = "button">Create</button>
-			</div>
-			<div id = "requests" class="form-group">
-				<label id = "labelAction" for="action">Input charges</label>
-				<div class="input-group">
-					<input type="number" id="action" name = "flat0" class="form-control" placeholder="Flat">
-					<input type="number" id="action" name = "cash0" class="form-control" placeholder="Cash">
-				</div>
-			</div>
-			<button type="submit" class="btn btn-primary">Send</button>
-		</form>
-		<form method="GET" action="handler.php">
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<label class="input-group-text" for="SelectReport">Report</label>
-				</div>
-				<select class="custom-select" id="SelectReport" name = "select">
-					<option value="">1</option>
-				</select>
-			</div>
-			<button type="submit" class="btn btn-primary">Show</button>
-		</form>
+		</div>
 	</div>
 </body>
 </html>

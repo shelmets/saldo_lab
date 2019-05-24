@@ -16,7 +16,15 @@
 	width:12.5%;
 	margin-bottom: 5px;
 }
+.choose
+{
+	margin-top:5px;
+}
 form
 {
 	margin-bottom: 8em;
+}
+.btn
+{
+	margin-bottom:10px;
 }

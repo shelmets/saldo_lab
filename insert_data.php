@@ -39,7 +39,7 @@ if ($res_old_data = $mysqli->query(sprintf("select number_flat, cash, date from 
 				}
 				else
 				{
-					echo sprintf("Delete %d %d row, errno Failure: %d, error: %s <br>", $flat, $row["cash"], $mysqli->errno, $mysqli->error);
+					echo sprintf("Delete %d %d row, Failure, errno: %d, error: %s <br>", $flat, $row["cash"], $mysqli->errno, $mysqli->error);
 					$flag = false;
 					break;
 				};
@@ -53,7 +53,7 @@ if ($res_old_data = $mysqli->query(sprintf("select number_flat, cash, date from 
 		}
 		else
 		{
-			echo sprintf("Insert %d %d Failure, errno: %d, error: %s <br>",$flat, $charge);
+			echo sprintf("Insert %d %d Failure, errno: %d, error: %s <br>",$flat, $charge, $mysqli->errno, $mysqli->error);
 			$flag = false;
 			break;
 		}
