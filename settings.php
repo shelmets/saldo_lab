@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
 $user = "root";
-$password = "fishing";
+$password = "...."; //your pass
 $data_base = "saldo_lab";
 ?>
